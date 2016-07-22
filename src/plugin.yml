@@ -1,0 +1,13 @@
+name: Punctual
+main: cc.isotopestudio.Punctual.Punctual
+
+author: Mars
+description: 
+website: http://isotopestudio.cc
+version: 1.0.0
+
+commands:
+  Punctual:
+    description: Punctual command
+    usage: /<command> - Get Information
+    aliases: yueka
