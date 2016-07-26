@@ -1,5 +1,6 @@
 package cc.isotopestudio.Punctual.task;
 
+import cc.isotopestudio.Punctual.data.ConfigData;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -8,9 +9,8 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 public class GUIUpdate extends BukkitRunnable{
 
-
     @Override
     public void run() {
-
+        ConfigData.updateConfig();
     }
 }

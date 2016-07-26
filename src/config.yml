@@ -1,9 +1,72 @@
-info:
+infoGUI:
   guiName: '§a月卡'
+  #自定义信息
   '0':
     name: '§a月卡'
     lore:
-    - 'Line 1'
-    - 'Line 2'
-    - 'Line 3'
+    - '§aLine 1'
+    - '§bLine 2'
+    - '§cLine 3'
+    #物品ID或名字
     type: DIAMOND
+  #购买月卡
+  '1':
+    name: '§a购买月卡'
+    lore:
+    - '§1Line 1'
+    - '§2Line 2'
+    - '§3Line 3'
+    type: 3
+  #签到
+  '2':
+    name: '§a签到'
+    lore:
+    - '§dLine 1'
+    - '§eLine 2'
+    - '§fLine 3'
+    type: GOLD_BLOCK
+  #关闭
+  '3':
+    name: '§a关闭'
+    lore:
+    - '§4Line 1'
+    - '§5Line 2'
+    - '§6Line 3'
+    type: STONE
+
+vip:
+  #权限为"yueka.1", 以此类推
+  '1':
+    #GUI介绍
+    item:
+      name: '§a月卡1'
+      lore:
+      - '§4Line 1'
+      - '§5Line 2'
+      - '§6Line 3'
+      type: STONE
+    price: 1000
+    reward:
+    - 'give <player> diamond 1'
+  '2':
+    item:
+      name: '§a月卡2'
+      lore:
+      - '§4Line 1'
+      - '§5Line 2'
+      - '§6Line 3'
+      type: STONE
+    price: 5000
+    reward:
+    - 'give <player> diamond 10'
+  '3':
+    item:
+      name: '§a月卡3'
+      lore:
+      - '§4Line 1'
+      - '§5Line 2'
+      - '§6Line 3'
+      type: STONE
+    price: 10000
+    reward:
+    - 'give <player> diamond 64'
