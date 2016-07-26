@@ -34,6 +34,17 @@ infoGUI:
     - '§6Line 3'
     type: STONE
 
+vipGUI:
+  guiName: '§a月卡购买'
+  #返回
+  '0':
+    name: '§a返回'
+    lore:
+    - '§4Line 1'
+    - '§5Line 2'
+    - '§6Line 3'
+    type: STONE
+
 vip:
   #权限为"yueka.1", 以此类推
   '1':
@@ -59,7 +70,7 @@ vip:
     price: 5000
     reward:
     - 'give <player> diamond 10'
-  '3':
+  super:
     item:
       name: '§a月卡3'
       lore:
@@ -70,3 +81,4 @@ vip:
     price: 10000
     reward:
     - 'give <player> diamond 64'
+  #能往后添加...

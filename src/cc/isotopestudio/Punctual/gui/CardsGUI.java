@@ -6,8 +6,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import static cc.isotopestudio.Punctual.data.ConfigData.cards;
-
 /**
  * Created by Mars on 7/26/2016.
  * Copyright ISOTOPE Studio
@@ -15,10 +13,11 @@ import static cc.isotopestudio.Punctual.data.ConfigData.cards;
 public class CardsGUI extends GUI {
 
     public CardsGUI(Player player) {
-        super(ConfigData.infoGUIName, 18);
+        super(ConfigData.cardsGUIName, 18);
         for (int i = 0; i < ConfigData.cardsGUIItems.size(); i++) {
             setOption(i, ConfigData.cardsGUIItems.get(i));
         }
+        setOption(17, ConfigData.cardsGUIBackButton);
     }
 
     @Override
@@ -33,8 +32,9 @@ public class CardsGUI extends GUI {
             if (optionIcons[slot] == null) {
                 return;
             }
-            if (slot == 8) {
+            if (slot == 17) {
                 event.getWhoClicked().closeInventory();
+                return;
             }
         }
     }

@@ -4,7 +4,10 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static cc.isotopestudio.Punctual.Punctual.plugin;
@@ -20,6 +23,7 @@ public class Util {
                 Material.getMaterial(s);
     }
 
+    @Contract("null -> null")
     public static ItemStack getItemFromConfig(ConfigurationSection s) {
         if (s == null)
             return null;
@@ -37,5 +41,12 @@ public class Util {
         meta.setLore(lore);
         item.setItemMeta(meta);
         return item;
+    }
+
+    @NotNull
+    public static String getToday() {
+        java.util.Date todayDate = new java.util.Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        return format.format(todayDate);
     }
 }

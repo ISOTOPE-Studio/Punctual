@@ -18,19 +18,25 @@ public class ConfigData {
     private static final String error = "°Ïc≈‰÷√Œƒº˛¥ÌŒÛ";
 
     public static ItemStack[] infoGUIItems;
-    public static List<Cards> cards;
+    public static List<Card> cards;
     public static List<ItemStack> cardsGUIItems;
     public static String infoGUIName;
+    public static String cardsGUIName;
+    public static ItemStack cardsGUIBackButton;
 
     public static void updateConfig() {
-        infoGUIName = config.getString("infoGUI.guiName", error);
 
-        // Setup infoGUI Items
+        // Setup infoGUI Info
+        infoGUIName = config.getString("infoGUI.guiName", error);
         infoGUIItems = new ItemStack[4];
         for (int i = 0; i < 4; i++) {
             infoGUIItems[i] = Util.getItemFromConfig(config.getConfigurationSection("infoGUI." + i));
             System.out.println(infoGUIItems[i]);
         }
+
+        // Setup cardsGUI Info
+        cardsGUIBackButton = Util.getItemFromConfig(config.getConfigurationSection("vipGUI.0"));
+        cardsGUIName = config.getString("vipGUI.name", error);
 
         // Setup Cards and cardsGUI Items
         ConfigurationSection vipsSection = config.getConfigurationSection("vip");
@@ -41,7 +47,7 @@ public class ConfigData {
             ConfigurationSection vipSection = vipsSection.getConfigurationSection(vip);
             double price = vipSection.getDouble("price");
             List<String> rewards = vipSection.getStringList("reward");
-            cards.add(new Cards(vip, price, rewards));
+            cards.add(new Card(vip, price, rewards));
             cardsGUIItems.add(Util.getItemFromConfig(vipSection.getConfigurationSection("item")));
             System.out.println(cardsGUIItems);
         }

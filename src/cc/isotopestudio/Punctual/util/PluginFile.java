@@ -12,10 +12,8 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.yaml.snakeyaml.DumperOptions;
 
 import java.io.*;
-import java.lang.reflect.Field;
 
 public class PluginFile extends YamlConfiguration {
 
@@ -115,6 +113,12 @@ public class PluginFile extends YamlConfiguration {
     public void load(File file) throws IOException, InvalidConfigurationException {
         Validate.notNull(file, "File cannot be null");
         this.load(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8));
+    }
+
+    @Override
+    public void set(String path, Object value) {
+        super.set(path, value);
+        save();
     }
 
 }

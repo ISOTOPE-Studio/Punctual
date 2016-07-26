@@ -1,7 +1,8 @@
 package cc.isotopestudio.Punctual;
 
 import cc.isotopestudio.Punctual.command.CommandPunctual;
-import cc.isotopestudio.Punctual.task.GUIUpdate;
+import cc.isotopestudio.Punctual.task.DateUpdate;
+import cc.isotopestudio.Punctual.task.InfoUpdate;
 import cc.isotopestudio.Punctual.util.PluginFile;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,7 +25,10 @@ public class Punctual extends JavaPlugin {
         playerData = new PluginFile(this, "playerData.yml");
 
         this.getCommand("Punctual").setExecutor(new CommandPunctual());
-        new GUIUpdate().run();
+
+        new InfoUpdate().runTaskLater(this, 1);
+        new DateUpdate().runTaskTimer(this, 1, 20 * 60 * 60);
+
         getLogger().info(pluginName + "成功加载!");
         getLogger().info(pluginName + "由ISOTOPE Studio制作!");
         getLogger().info("http://isotopestudio.cc");
