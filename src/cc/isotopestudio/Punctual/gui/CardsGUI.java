@@ -35,6 +35,7 @@ public class CardsGUI extends GUI {
         List<String> lore = new ArrayList<>();
         if (card != null) {
             lore.add(S.toAqua("当前月卡: ") + card.getName());
+            lore.add(S.toAqua("剩余天数: ") + S.toGreen(PlayerData.getRemainDays(player) + "天"));
         } else {
             lore.add(S.toRed("你没有月卡"));
         }
@@ -83,7 +84,7 @@ public class CardsGUI extends GUI {
                 return;
             }
             PlayerData.setPlayerCard(player, card);
-            player.sendMessage(S.toPrefixGreen("成功购买"));
+            player.sendMessage(S.toPrefixGreen("成功购买, 花费 " + card.getPrice() + " 点卷"));
             player.closeInventory();
         }
     }

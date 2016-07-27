@@ -50,4 +50,9 @@ public class PlayerData {
         return plugin.getPlayersData().getBoolean(player.getName() + ".checked", false);
     }
 
+    public static int getRemainDays(String playerName) {
+        long interval = (new Date().getTime() + 2592000000L) - plugin.getPlayersData().getLong(playerName + ".time");
+        return (int) (interval / (1000 * 60 * 60 * 24) + 1);
+    }
+
 }

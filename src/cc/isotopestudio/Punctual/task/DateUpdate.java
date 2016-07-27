@@ -5,7 +5,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static cc.isotopestudio.Punctual.Punctual.plugin;
 
@@ -27,12 +26,8 @@ public class DateUpdate extends BukkitRunnable {
             }
         }
         for (String player : plugin.getPlayersData().getKeys(false)) {
-            long time = plugin.getPlayersData().getLong(player + ".time");
-            if (time == 0) continue;
-            long expire = time + 2592000000L;
-            if (new Date().getTime() > expire) {
+            if (PlayerData.getRemainDays(player) <= 0)
                 PlayerData.removePlayerCard(player);
-            }
         }
         plugin.savePlayersData();
     }
