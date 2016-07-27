@@ -1,6 +1,10 @@
 package cc.isotopestudio.Punctual.gui;
 
+import cc.isotopestudio.Punctual.data.Card;
 import cc.isotopestudio.Punctual.data.ConfigData;
+import cc.isotopestudio.Punctual.data.PlayerData;
+import cc.isotopestudio.Punctual.util.S;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -35,16 +39,33 @@ public class InfoGUI extends GUI {
             Player player = (Player) event.getWhoClicked();
             // 购买月卡
             if (slot == 1) {
-                event.getWhoClicked().closeInventory();
+                player.closeInventory();
                 new CardsGUI(player).open(player);
                 return;
             }
+            // 签到
             if (slot == 2) {
-                return;
+                Card card = PlayerData.getPlayerCard(player);
+                if (card == null) {
+                    player.sendMessage(S.toPrefixRed("你没有月卡"));
+                    player.closeInventory();
+                    return;
+                }
+                if (PlayerData.isPlayerChecked(player)) {
+                    player.sendMessage(S.toPrefixRed("你已经签过到了"));
+                    player.closeInventory();
+                    return;
+                }
+                PlayerData.setPlayerChecked(player);
+                for (String command : card.getCommands()) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
+                            command.replace("<player>", player.getName()));
+                }
+                player.closeInventory();
+                player.sendMessage(S.toPrefixGreen("成功签到, 获得奖励"));
             }
             if (slot == 8) {
-                event.getWhoClicked().closeInventory();
-                return;
+                player.closeInventory();
             }
         }
     }

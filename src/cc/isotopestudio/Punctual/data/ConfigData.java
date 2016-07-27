@@ -36,20 +36,22 @@ public class ConfigData {
 
         // Setup cardsGUI Info
         cardsGUIBackButton = Util.getItemFromConfig(config.getConfigurationSection("vipGUI.0"));
-        cardsGUIName = config.getString("vipGUI.name", error);
+        cardsGUIName = config.getString("vipGUI.guiName", error);
 
         // Setup Cards and cardsGUI Items
         ConfigurationSection vipsSection = config.getConfigurationSection("vip");
         Set<String> vipNames = vipsSection.getKeys(false);
         cards = new ArrayList<>();
         cardsGUIItems = new ArrayList<>();
+        System.out.println("Cards: " + vipNames);
         for (String vip : vipNames) {
             ConfigurationSection vipSection = vipsSection.getConfigurationSection(vip);
-            double price = vipSection.getDouble("price");
+            String name = vipSection.getString("item.name");
+            int price = vipSection.getInt("price");
             List<String> rewards = vipSection.getStringList("reward");
-            cards.add(new Card(vip, price, rewards));
+            cards.add(new Card(vip, name, price, rewards));
             cardsGUIItems.add(Util.getItemFromConfig(vipSection.getConfigurationSection("item")));
-            System.out.println(cardsGUIItems);
+
         }
     }
 

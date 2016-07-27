@@ -32,8 +32,8 @@ public abstract class GUI implements Listener {
         this.name = name + getPassword();
         this.size = size;
         this.plugin = Punctual.plugin;
-        this.optionNames = new String[9];
-        this.optionIcons = new ItemStack[9];
+        this.optionNames = new String[size];
+        this.optionIcons = new ItemStack[size];
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         willDestory = true;
     }

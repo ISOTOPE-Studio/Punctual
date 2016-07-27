@@ -46,10 +46,11 @@ vipGUI:
     type: STONE
 
 vip:
-  #权限为"yueka.1", 以此类推
+  # 购买权限为"yueka.1", 以此类推
   '1':
     #GUI介绍
     item:
+      #这个是GUI内物品的名字也是月卡本身的名字
       name: '§a月卡1'
       lore:
       - '§4Line 1'

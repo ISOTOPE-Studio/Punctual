@@ -10,21 +10,23 @@ import java.util.List;
  */
 public class Card {
 
+    private final String id;
     private final String name;
-    private final double price;
+    private final int price;
     private final List<String> commands;
 
-    public Card(String name, double price, List<String> commands) {
+    public Card(String id, String name, int price, List<String> commands) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.commands = commands;
     }
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
@@ -32,10 +34,19 @@ public class Card {
         return commands;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getPermission() {
+        return "yueka." + getId();
+    }
+
+
     @Nullable
     public static Card getCardByName(String name) {
         for (Card card : ConfigData.cards) {
-            if (card.getName().equals(name))
+            if (card.getId().equals(name))
                 return card;
         }
         return null;

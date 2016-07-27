@@ -1,6 +1,7 @@
 package cc.isotopestudio.Punctual.data;
 
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Contract;
 
 import java.util.Date;
 
@@ -26,19 +27,20 @@ public class PlayerData {
         return Card.getCardByName(playerData.getString(player.getName() + ".card"));
     }
 
-    public static boolean setPlayerCard(Player player, String cardName) {
-        Card card = Card.getCardByName(cardName);
+    @Contract("_, null -> false")
+    public static boolean setPlayerCard(Player player, Card card) {
         if (card == null) return false;
-        playerData.set(player.getName() + ".card", cardName);
-        return true;
-    }
-
-    public static void setPlayerTimeStamp(Player player) {
+        playerData.set(player.getName() + ".card", card.getId());
         playerData.set(player.getName() + ".time", new Date().getTime());
+        return true;
     }
 
     public static void removePlayerCard(String player) {
         playerData.set(player, null);
+    }
+
+    public static void setPlayerChecked(Player player) {
+        playerData.set(player.getName() + ".checked", true);
     }
 
     public static boolean isPlayerChecked(Player player) {
