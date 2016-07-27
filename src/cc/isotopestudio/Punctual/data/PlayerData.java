@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Contract;
 
 import java.util.Date;
 
-import static cc.isotopestudio.Punctual.Punctual.playerData;
+import static cc.isotopestudio.Punctual.Punctual.plugin;
 
 /**
  * Created by Mars on 7/22/2016.
@@ -24,27 +24,30 @@ public class PlayerData {
      */
 
     public static Card getPlayerCard(Player player) {
-        return Card.getCardByName(playerData.getString(player.getName() + ".card"));
+        return Card.getCardByName(plugin.getPlayersData().getString(player.getName() + ".card"));
     }
 
     @Contract("_, null -> false")
     public static boolean setPlayerCard(Player player, Card card) {
         if (card == null) return false;
-        playerData.set(player.getName() + ".card", card.getId());
-        playerData.set(player.getName() + ".time", new Date().getTime());
+        plugin.getPlayersData().set(player.getName() + ".card", card.getId());
+        plugin.getPlayersData().set(player.getName() + ".time", new Date().getTime());
+        plugin.savePlayersData();
         return true;
     }
 
     public static void removePlayerCard(String player) {
-        playerData.set(player, null);
+        plugin.getPlayersData().set(player, null);
+        plugin.savePlayersData();
     }
 
     public static void setPlayerChecked(Player player) {
-        playerData.set(player.getName() + ".checked", true);
+        plugin.getPlayersData().set(player.getName() + ".checked", true);
+        plugin.savePlayersData();
     }
 
     public static boolean isPlayerChecked(Player player) {
-        return playerData.getBoolean(player.getName() + ".checked", false);
+        return plugin.getPlayersData().getBoolean(player.getName() + ".checked", false);
     }
 
 }

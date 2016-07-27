@@ -24,7 +24,7 @@ public abstract class GUI implements Listener {
     final String name;
     final int size;
     private Plugin plugin;
-    String[] optionNames;
+    private String[] optionNames;
     ItemStack[] optionIcons;
     private final boolean willDestory;
 
@@ -38,10 +38,9 @@ public abstract class GUI implements Listener {
         willDestory = true;
     }
 
-    GUI setOption(int position, ItemStack icon) {
+    void setOption(int position, ItemStack icon) {
         optionNames[position] = icon.getItemMeta().getDisplayName();
         optionIcons[position] = setItemNameAndLore(icon, icon.getItemMeta().getDisplayName(), icon.getItemMeta().getLore());
-        return this;
     }
 
     public void open(Player player) {

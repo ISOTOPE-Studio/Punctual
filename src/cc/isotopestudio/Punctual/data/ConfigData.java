@@ -1,14 +1,16 @@
 package cc.isotopestudio.Punctual.data;
 
-import cc.isotopestudio.Punctual.util.Util;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.Contract;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static cc.isotopestudio.Punctual.Punctual.config;
+import static cc.isotopestudio.Punctual.Punctual.plugin;
 
 /**
  * Created by Mars on 7/22/2016.
@@ -27,19 +29,19 @@ public class ConfigData {
     public static void updateConfig() {
 
         // Setup infoGUI Info
-        infoGUIName = config.getString("infoGUI.guiName", error);
+        infoGUIName = plugin.getConfig().getString("infoGUI.guiName", error);
         infoGUIItems = new ItemStack[4];
         for (int i = 0; i < 4; i++) {
-            infoGUIItems[i] = Util.getItemFromConfig(config.getConfigurationSection("infoGUI." + i));
+            infoGUIItems[i] = getItemFromConfig(plugin.getConfig().getConfigurationSection("infoGUI." + i));
             System.out.println(infoGUIItems[i]);
         }
 
         // Setup cardsGUI Info
-        cardsGUIBackButton = Util.getItemFromConfig(config.getConfigurationSection("vipGUI.0"));
-        cardsGUIName = config.getString("vipGUI.guiName", error);
+        cardsGUIBackButton = getItemFromConfig(plugin.getConfig().getConfigurationSection("vipGUI.0"));
+        cardsGUIName = plugin.getConfig().getString("vipGUI.guiName", error);
 
         // Setup Cards and cardsGUI Items
-        ConfigurationSection vipsSection = config.getConfigurationSection("vip");
+        ConfigurationSection vipsSection = plugin.getConfig().getConfigurationSection("vip");
         Set<String> vipNames = vipsSection.getKeys(false);
         cards = new ArrayList<>();
         cardsGUIItems = new ArrayList<>();
@@ -50,9 +52,35 @@ public class ConfigData {
             int price = vipSection.getInt("price");
             List<String> rewards = vipSection.getStringList("reward");
             cards.add(new Card(vip, name, price, rewards));
-            cardsGUIItems.add(Util.getItemFromConfig(vipSection.getConfigurationSection("item")));
+            cardsGUIItems.add(getItemFromConfig(vipSection.getConfigurationSection("item")));
 
         }
     }
 
+    @SuppressWarnings("deprecation")
+    private static Material getMaterialFromString(String s) {
+        return s.matches("[0-9]+") ?
+                Material.getMaterial(Integer.parseInt(s)) :
+                Material.getMaterial(s);
+    }
+
+    @Contract("null -> null")
+    private static ItemStack getItemFromConfig(ConfigurationSection s) {
+        if (s == null)
+            return null;
+        String itemName = s.getString("name");
+        List<String> lore = s.getStringList("lore");
+        Material material = getMaterialFromString(s.getString("type", "NULL"));
+        if (material == null) {
+            plugin.getLogger().warning("≈‰÷√¥ÌŒÛ: ≤ƒ¡œ" + s.getString("type") + "Œﬁ–ß");
+            return null;
+        }
+        short damage = (short) s.getInt("damage", 0);
+        ItemStack item = new ItemStack(material, 1, damage);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(itemName);
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        return item;
+    }
 }
