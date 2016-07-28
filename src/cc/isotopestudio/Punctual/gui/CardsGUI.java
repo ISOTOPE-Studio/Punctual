@@ -22,9 +22,9 @@ import static cc.isotopestudio.Punctual.data.ConfigData.cards;
  * Created by Mars on 7/26/2016.
  * Copyright ISOTOPE Studio
  */
-public class CardsGUI extends GUI {
+class CardsGUI extends GUI {
 
-    public CardsGUI(Player player) {
+    CardsGUI(Player player) {
         super(ConfigData.cardsGUIName, 18);
         for (int i = 0; i < ConfigData.cardsGUIItems.size(); i++) {
             setOption(i, ConfigData.cardsGUIItems.get(i));
@@ -35,7 +35,7 @@ public class CardsGUI extends GUI {
         List<String> lore = new ArrayList<>();
         if (card != null) {
             lore.add(S.toAqua("当前月卡: ") + card.getName());
-            lore.add(S.toAqua("剩余天数: ") + S.toGreen(PlayerData.getRemainDays(player) + "天"));
+            lore.add(S.toAqua("剩余天数: ") + S.toGreen(PlayerData.getRemainDays(player.getName()) + "天"));
         } else {
             lore.add(S.toRed("你没有月卡"));
         }

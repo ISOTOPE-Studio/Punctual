@@ -51,7 +51,7 @@ public class PlayerData {
     }
 
     public static int getRemainDays(String playerName) {
-        long interval = (new Date().getTime() + 2592000000L) - plugin.getPlayersData().getLong(playerName + ".time");
+        long interval = plugin.getPlayersData().getLong(playerName + ".time") + 2592000000L - new Date().getTime();
         return (int) (interval / (1000 * 60 * 60 * 24) + 1);
     }
 
